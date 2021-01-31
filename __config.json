@@ -1,12 +1,12 @@
 {
-    "token": "bot token",
+    "token": "token bota",
     "ufland": {
-        "auth": {"Authorization": "unbelivaboat api auth"},
-        "memes": "channel id // replace with a number",
-        "logging": "logging channel id // replace with a number",
-        "gain": "gain for reaction // replace with a number"
+        "auth": {"Authorization": "autoryzacja api unbelivaboat"},
+        "memes": "id kanału z memami // zamień na liczbę",
+        "logging": "id kanału do logowanie // zamień na liczbę",
+        "gain": "profit za reakcję // zamień na liczbę"
     },
     "db": {
-        "filename": "sqlite filename"
+        "filename": "nazwa pliku bazy danych sqlite"
     }
 }
