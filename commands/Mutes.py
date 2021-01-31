@@ -13,20 +13,20 @@ class Mutes(commands.Cog):
     @commands.command(name="mute")
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def mute(self, ctx: commands.Context, member: discord.Member, *, reason: str = "No reason provided!"):
+    async def mute(self, ctx: commands.Context, member: discord.Member, *, reason: str = "Nie podano powodu!"):
         mutes_orm = orm.moderation.Mutes(self.client)
 
         mute = await mutes_orm.create(member, reason)
 
         await ctx.send(embed=utils.SuccessEmbed(
-            title=f"Muted {mute.user.name}#{mute.user.discriminator} for: \"{reason}\""
+            title=f"Wyciszono {mute.user.name}#{mute.user.discriminator} za: \"{reason}\""
         ))
 
     @commands.command(name="temp_mute", aliases=["tempmute"])
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def temp_mute(self, ctx: commands.Context, member: discord.Member, tme: str, *,
-                        reason: str = "No reason provided!"):
+                        reason: str = "Nie podano powodu!"):
         tempmutes_orm = orm.moderation.TempMutes(self.client)
 
         endtime = utils.process_time(tme)
@@ -34,7 +34,7 @@ class Mutes(commands.Cog):
         tempmute = await tempmutes_orm.create(member, reason, round(endtime))
 
         await ctx.send(embed=utils.SuccessEmbed(
-            title=f"Tempmuted {tempmute.user.name}#{tempmute.user.discriminator} for: \"{reason}\""
+            title=f"Czasowo wyciszono {tempmute.user.name}#{tempmute.user.discriminator} za: \"{reason}\""
         ))
 
     @commands.command(name="unmute", aliases=["un_mute"])
@@ -46,7 +46,7 @@ class Mutes(commands.Cog):
         await mute.remove()
 
         await ctx.send(embed=utils.SuccessEmbed(
-            title=f"Unmuted {mute.user.name}#{mute.user.discriminator}"
+            title=f"Odmutowano {mute.user.name}#{mute.user.discriminator}"
         ))
 
 

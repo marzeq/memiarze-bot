@@ -69,13 +69,13 @@ class MemiarzeClient(commands.Bot):
         if tpe == discord.ext.commands.errors.MissingRequiredArgument:
             await ctx.send(embed=utils.ErrorEmbed(
                 title=ctx.command.name,
-                description=f"Missing the {exception.param.name} argument!")
+                description=f"Nie podano argumentu {exception.param.name}!")
             )
         elif tpe == discord.ext.commands.errors.CommandNotFound:
             await ctx.send(
                 embed=utils.ErrorEmbed(
                     title="main",
-                    description="This command wasn't found!"
+                    description="Komenda nie znaleziona"
                 )
             )
         else:

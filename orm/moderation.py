@@ -11,10 +11,11 @@ class Warn:
         self.__client = client
 
     def __repr__(self):
-        return f"Warn ID: #{self.id} | User: {self.user.name}#{self.user.discriminator} | Reason: {self.reason}"
+        return f"ID ostrzeżenia: #{self.id} | Użytkownik: {self.user.name}#{self.user.discriminator} | " \
+               f"Powód: {self.reason}"
 
     def __str__(self):
-        return f"Warn ID: #{self.id} | User: {self.user.name}#{self.user.discriminator} | Reason: {self.reason}"
+        return self.__repr__()
 
     def remove(self):
         self.__client.cursor.execute("delete from warns where id = :id", {"id": self.id})
@@ -190,10 +191,10 @@ class BaseMute:
         self.reason = reason
 
     def __repr__(self):
-        return f"Member: {self.user.name}#{self.user.discriminator} | Reason: {self.reason}"
+        return f"Członek: {self.user.name}#{self.user.discriminator} | Powód: {self.reason}"
 
     def __str__(self):
-        return f"Member: {self.user.name}#{self.user.discriminator} | Reason: {self.reason}"
+        return self.__repr__()
 
     async def remove(self):
         self.__client.cursor.execute("delete from mutes where memberid = :memberid", {"memberid": self.member.id})

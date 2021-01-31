@@ -17,8 +17,8 @@ class Warns(commands.Cog):
         warns_orm = orm.moderation.Warns(self.client)
         warning: orm.moderation.Warn = warns_orm.create(user, reason)
 
-        await ctx.send(embed=utils.SuccessEmbed(title=f"Warned {user.name}#{user.discriminator} for: \"{reason}\"")
-                       .set_footer(text=f"Warn ID: {warning.id}"))
+        await ctx.send(embed=utils.SuccessEmbed(title=f"Ostrzeżono {user.name}#{user.discriminator} za: \"{reason}\"")
+                       .set_footer(text=f"ID ostrzeżenia: {warning.id}"))
 
     @commands.command(name="warnings", aliases=["warns"])
     async def warnings(self, ctx: commands.Context, user: discord.User):
@@ -30,11 +30,11 @@ class Warns(commands.Cog):
 
         if not warns:
             await ctx.send(embed=utils.ErrorEmbed(
-                title=f"{user.name}#{user.discriminator} doesn't have any warnings!"
+                title=f"{user.name}#{user.discriminator} nie ma żadnych ostrzeżeń!"
             ))
         elif len(desc) <= 2048:
             await ctx.send(embed=utils.SuccessEmbed(
-                title=f"Warnings for {user.name}#{user.discriminator}:",
+                title=f"Ostrzeżenia dla {user.name}#{user.discriminator}:",
                 description=desc
             ))
         else:
@@ -42,7 +42,7 @@ class Warns(commands.Cog):
             with open(f"temp/warns{timern}.txt", "w") as f:
                 f.write(desc)
             await ctx.send(embed=utils.ErrorEmbed(
-                title="This embed was too big so we sent all the files along with this message",
+                title="Ten embed był za duży więc wysłaliśmy wszystkie ostrzeżenia w pliku wyżej",
             ), file=discord.File(f"./temp/warns{timern}.txt", filename="warns.txt"))
             os.remove(f"./temp/warns{timern}.txt")
 
@@ -54,7 +54,7 @@ class Warns(commands.Cog):
 
         if selectedwarn is None:
             await ctx.send(embed=utils.ErrorEmbed(
-                title=f"The warn with the ID of {warnid} doesn't exist!"
+                title=f"Ostrzeżenie o ID {warnid} nie istnieje!"
             ))
             return
 
@@ -68,7 +68,7 @@ class Warns(commands.Cog):
 
         if selectedwarn is None:
             await ctx.send(embed=utils.ErrorEmbed(
-                title=f"The warn with the ID of {warnid} doesn't exist!"
+                title=f"Ostrzeżenie o ID {warnid} nie istnieje!"
             ))
             return
 
