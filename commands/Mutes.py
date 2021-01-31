@@ -38,6 +38,8 @@ class Mutes(commands.Cog):
         ))
 
     @commands.command(name="unmute", aliases=["un_mute"])
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def unmute(self, ctx: commands.Context, member: discord.Member):
         mutes_orm = orm.moderation.Mutes(self.client)
 

@@ -4,11 +4,12 @@ import math
 
 
 class Warn:
-    def __init__(self, user: discord.User, reason: str, warnid: int, client: main.MemiarzeClient):
+    def __init__(self, user: discord.User, reason: str, warnid: int, client: main.MemiarzeClient, guild: discord.Guild):
         self.user = user
         self.reason = reason
         self.id = warnid
         self.__client = client
+        self.guild = guild
 
     def __repr__(self):
         return f"ID ostrzeżenia: #{self.id} | Użytkownik: {self.user.name}#{self.user.discriminator} | " \
@@ -39,28 +40,34 @@ class Warns:
     def __init__(self, client: main.MemiarzeClient):
         self.client = client
 
-    def create(self, user: discord.User, reason: str):
-        self.client.cursor.execute("insert into warns (userid, reason) values (:userid, :reason)", {"userid": user.id,
-                                                                                                    "reason": reason})
+    def create(self, user: discord.User, guild: discord.Guild, reason: str):
+        self.client.cursor.execute("insert into warns (userid, reason, guildid) values (:userid, :reason, :guildid)",
+                                   {"userid": user.id,
+                                    "reason": reason,
+                                    "guildid": guild.id})
         self.client.conn.commit()
 
-        self.client.cursor.execute("select * from warns where userid = :userid", {"userid": user.id})
+        self.client.cursor.execute("select * from warns where userid = :userid and guildid = :guildid",
+                                   {"userid": user.id,
+                                    "guildid": guild.id})
 
         fetched = self.client.cursor.fetchall()
         fetched.reverse()
         warnid = fetched[0][2]
 
-        return Warn(user, reason, warnid, self.client)
+        return Warn(user, reason, warnid, self.client, guild)
 
-    def get_user_warns(self, user: discord.User):
-        self.client.cursor.execute("select * from warns where userid = :userid", {"userid": user.id})
+    def get_user_warns(self, user: discord.User, guild: discord.Guild):
+        self.client.cursor.execute("select * from warns where userid = :userid and guildid = :guildid",
+                                   {"userid": user.id,
+                                    "guildid": guild.id})
 
         fetched = self.client.cursor.fetchall()
 
         warns = []
 
         for obj in fetched:
-            warns.append(Warn(self.client.get_user(obj[0]), obj[1], obj[2], self.client))
+            warns.append(Warn(self.client.get_user(obj[0]), obj[1], obj[2], self.client, guild))
 
         return warns
 
@@ -72,7 +79,8 @@ class Warns:
         if not fetched:
             return None
 
-        return Warn(self.client.get_user(fetched[0]), fetched[1], fetched[2], self.client)
+        return Warn(self.client.get_user(fetched[0]), fetched[1], fetched[2],
+                    self.client, self.client.get_guild(fetched[3]))
 
 
 class BaseMutes:
@@ -198,6 +206,7 @@ class BaseMute:
 
     async def remove(self):
         self.__client.cursor.execute("delete from mutes where memberid = :memberid", {"memberid": self.member.id})
+        self.__client.conn.commit()
         self.__client.cursor.execute("select muteroleid from guilds where id = :id", {"id": self.member.guild.id})
 
         fetched = self.__client.cursor.fetchone()
