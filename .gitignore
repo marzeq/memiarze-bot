@@ -1,0 +1,5 @@
+.idea/
+db.*
+config.json
+__pycache__/
+log.*
