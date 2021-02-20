@@ -63,4 +63,6 @@ class Ufland(commands.Cog):
 
 
 def setup(client: commands.Bot):
-    client.add_cog(Ufland(client))
+    obj = Ufland(client)
+    if obj.memes != 0 and obj.logging != 0:
+        client.add_cog(obj)
