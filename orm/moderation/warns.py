@@ -1,6 +1,5 @@
 import discord
 import main
-import math
 
 
 class Warn:
@@ -53,7 +52,7 @@ class Warns:
 
         fetched = self.client.cursor.fetchall()
         fetched.reverse()
-        warnid = fetched[0][2]
+        warnid = fetched[0][3]
 
         return Warn(user, reason, warnid, self.client, guild)
 
@@ -79,5 +78,5 @@ class Warns:
         if not fetched:
             return None
 
-        return Warn(self.client.get_user(fetched[0]), fetched[1], fetched[2],
-                    self.client, self.client.get_guild(fetched[3]))
+        return Warn(self.client.get_user(fetched[0]), fetched[1], fetched[3],
+                    self.client, self.client.get_guild(fetched[2]))

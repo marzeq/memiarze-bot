@@ -46,7 +46,7 @@ class Warns(commands.Cog):
             with open(f"temp/warns{timern}.txt", "w") as f:
                 f.write(desc)
             await ctx.send(embed=utils.ErrorEmbed(
-                title="Ten embed był za duży więc wysłaliśmy wszystkie ostrzeżenia w pliku wyżej",
+                title="Ten embed był za duży, więc wysłaliśmy wszystkie ostrzeżenia w pliku wyżej",
             ), file=discord.File(f"./temp/warns{timern}.txt", filename="warns.txt"))
             os.remove(f"./temp/warns{timern}.txt")
 
@@ -93,6 +93,12 @@ class Warns(commands.Cog):
         if selectedwarn is None:
             await ctx.send(embed=utils.ErrorEmbed(
                 title=f"Ostrzeżenie o ID {warnid} nie istnieje!"
+            ))
+            return
+
+        if selectedwarn.guild.id != ctx.guild.id:
+            await ctx.send(embed=utils.ErrorEmbed(
+                title=f"Ostrzeżenie o ID {warnid} pochodzi z innej gildii!"
             ))
             return
 
