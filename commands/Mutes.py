@@ -48,7 +48,7 @@ class Mutes(commands.Cog):
         await mute.remove()
 
         await ctx.send(embed=utils.SuccessEmbed(
-            title=f"Odmutowano {mute.user.name}#{mute.user.discriminator}"
+            title=f"Odciszono {mute.user.name}#{mute.user.discriminator}"
         ))
 
 
