@@ -7,8 +7,8 @@ class BaseBans:
     def __init__(self, client: main.MemiarzeClient):
         self.client = client
 
-    async def get_ban_by_member(self, member: discord.User):
-        self.client.cursor.execute("select * from bans where memberid = :memberid", {"memberid": member.id})
+    async def get_ban_by_member(self, member: discord.User, guild: discord.Guild):
+        self.client.cursor.execute("select * from bans where memberid = :memberid and guildid = :guildid", {"memberid": member.id, "guildid": guild.id})
 
         fetched = self.client.cursor.fetchone()
 

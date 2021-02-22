@@ -43,7 +43,13 @@ class Bans(commands.Cog):
     async def unban(self, ctx: commands.Context, user: discord.User):
         bans_orm = orm.moderation.Bans(self.client)
 
-        ban = await bans_orm.get_ban_by_member(user)
+        ban = await bans_orm.get_ban_by_member(user, ctx.guild)
+
+        if ban is None:
+            await ctx.send(embed=utils.ErrorEmbed(
+                title=f"Ten ban nie istnieje!"
+            ))
+            return
 
         await ban.remove()
 

@@ -45,6 +45,12 @@ class Mutes(commands.Cog):
 
         mute = mutes_orm.get_mute_by_member(member)
 
+        if mute is None:
+            await ctx.send(embed=utils.ErrorEmbed(
+                title=f"To wyciszenie nie istnieje!"
+            ))
+            return
+
         await mute.remove()
 
         await ctx.send(embed=utils.SuccessEmbed(

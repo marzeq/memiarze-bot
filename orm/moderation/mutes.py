@@ -8,7 +8,7 @@ class BaseMutes:
         self.client = client
 
     def get_mute_by_member(self, member: discord.Member):
-        self.client.cursor.execute("select * from mutes where memberid = :memberid", {"memberid": member.id})
+        self.client.cursor.execute("select * from mutes where memberid = :memberid and guildid = :guildid", {"memberid": member.id, "guildid": member.guild.id})
 
         fetched = self.client.cursor.fetchone()
 
