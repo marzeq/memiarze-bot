@@ -10,7 +10,7 @@ import utils
 import sqlite3
 
 
-__version__ = "1.0"
+__version__ = "1.1"
 
 
 class MemiarzeClient(commands.Bot):
