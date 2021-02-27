@@ -10,6 +10,9 @@ import utils
 import sqlite3
 
 
+__version__ = "1.0"
+
+
 class MemiarzeClient(commands.Bot):
 
     default_prefix = "./"
