@@ -57,6 +57,10 @@ class ReactionRoleMessage:
         self.emojis = emojis
         self.client = client
 
-    def remove(self):
+    async def remove(self):
         self.client.cursor.execute("delete from reaction_role where messageid = :messageid", {"messageid": self.message.id})
         self.client.cursor.execute("delete from reaction_role_emoji where messageid = :messageid", {"messageid": self.message.id})
+
+        self.client.conn.commit()
+
+        await self.message.clear_reactions()
