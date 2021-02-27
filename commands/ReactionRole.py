@@ -11,6 +11,8 @@ class ReactionRoles(commands.Cog):
         self.client: main.MemiarzeClient = client
 
     @commands.group(name="reaction_role", aliases=["reactionrole", "rrole"], invoke_without_command=True)
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def reaction_role(self, ctx: commands.Context):
         await ctx.send(
             embed=utils.ErrorEmbed(
@@ -99,6 +101,8 @@ class ReactionRoles(commands.Cog):
         )
 
     @reaction_role.command(name="remove")
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def remove(self, ctx: commands.Context, message: discord.Message):
         reaction_role_orm = orm.reaction_role.ReactionRoleMessages(self.client)
 
@@ -123,6 +127,8 @@ class ReactionRoles(commands.Cog):
         )
 
     @reaction_role.command(name="add_emoji")
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def add_emoji(self, ctx: commands.Context, message: discord.Message, emoji: str, role: discord.Role):
         reaction_role_orm = orm.reaction_role.ReactionRoleMessages(self.client)
 
@@ -147,6 +153,8 @@ class ReactionRoles(commands.Cog):
         )
 
     @reaction_role.command(name="remove_emoji")
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def remove_emoji(self, ctx: commands.Context, message: discord.Message, emoji: str):
         reaction_role_orm = orm.reaction_role.ReactionRoleMessages(self.client)
 

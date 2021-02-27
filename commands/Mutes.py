@@ -11,8 +11,8 @@ class Mutes(commands.Cog):
         self.client: main.MemiarzeClient = client
 
     @commands.command(name="mute")
-    @commands.has_guild_permissions(manage_nicknames=True)
-    @commands.bot_has_guild_permissions(manage_nicknames=True)
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def mute(self, ctx: commands.Context, member: discord.Member, *, reason: str = "Nie podano powodu!"):
         mutes_orm = orm.moderation.Mutes(self.client)
 
@@ -23,8 +23,8 @@ class Mutes(commands.Cog):
         ))
 
     @commands.command(name="temp_mute", aliases=["tempmute"])
-    @commands.has_guild_permissions(manage_nicknames=True)
-    @commands.bot_has_guild_permissions(manage_nicknames=True)
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def temp_mute(self, ctx: commands.Context, member: discord.Member, tme: str, *,
                         reason: str = "Nie podano powodu!"):
         tempmutes_orm = orm.moderation.TempMutes(self.client)
@@ -38,8 +38,8 @@ class Mutes(commands.Cog):
         ))
 
     @commands.command(name="unmute", aliases=["un_mute"])
-    @commands.has_guild_permissions(manage_nicknames=True)
-    @commands.bot_has_guild_permissions(manage_nicknames=True)
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
     async def unmute(self, ctx: commands.Context, member: discord.Member):
         mutes_orm = orm.moderation.Mutes(self.client)
 
