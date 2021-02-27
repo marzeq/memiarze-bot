@@ -7,6 +7,8 @@ import orm.moderation
 
 class Bans(commands.Cog):
 
+    name = "Bans"
+
     def __init__(self, client):
         self.client: main.MemiarzeClient = client
 
@@ -25,11 +27,11 @@ class Bans(commands.Cog):
     @commands.command(name="temp_ban", aliases=["tempban"])
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def temp_ban(self, ctx: commands.Context, member: discord.Member, tme: str, *,
+    async def temp_ban(self, ctx: commands.Context, member: discord.Member, time: str, *,
                        reason: str = "Nie podano powodu!"):
         tempbans_orm = orm.moderation.TempBans(self.client)
 
-        endtime = utils.process_time(tme)
+        endtime = utils.process_time(time)
 
         tempban = await tempbans_orm.create(member, reason, round(endtime))
 

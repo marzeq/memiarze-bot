@@ -9,13 +9,15 @@ import os
 
 class Warns(commands.Cog):
 
+    name = "Warns"
+
     def __init__(self, client):
         self.client: main.MemiarzeClient = client
 
     @commands.command(name="warn")
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def warn(self, ctx: commands.Context, user: discord.User, *, reason: str = "No reason provided!"):
+    async def warn(self, ctx: commands.Context, user: discord.User, *, reason: str = "Nie podano powodu!"):
         warns_orm = orm.moderation.Warns(self.client)
         warning: orm.moderation.Warn = warns_orm.create(user, ctx.guild, reason)
 

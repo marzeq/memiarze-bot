@@ -7,6 +7,8 @@ import orm.reaction_role
 
 class ReactionRoles(commands.Cog):
 
+    name = "ReactionRoles"
+
     def __init__(self, client):
         self.client: main.MemiarzeClient = client
 

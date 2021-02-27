@@ -7,6 +7,8 @@ import orm.moderation
 
 class Mutes(commands.Cog):
 
+    name = "Mutes"
+
     def __init__(self, client):
         self.client: main.MemiarzeClient = client
 
@@ -25,11 +27,11 @@ class Mutes(commands.Cog):
     @commands.command(name="temp_mute", aliases=["tempmute"])
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def temp_mute(self, ctx: commands.Context, member: discord.Member, tme: str, *,
+    async def temp_mute(self, ctx: commands.Context, member: discord.Member, time: str, *,
                         reason: str = "Nie podano powodu!"):
         tempmutes_orm = orm.moderation.TempMutes(self.client)
 
-        endtime = utils.process_time(tme)
+        endtime = utils.process_time(time)
 
         tempmute = await tempmutes_orm.create(member, reason, round(endtime))
 

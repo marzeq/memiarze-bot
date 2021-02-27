@@ -99,7 +99,7 @@ class MemiarzeClient(commands.Bot):
         """
         print(f"Logged in as {self.user.name}#{self.user.discriminator}!")
 
-        # self.remove_command("help")
+        self.remove_command("help")
         print("Registering extensions...")
         await self.load_extensions(["commands", "listeners", "loops"])
         print("Registered all extensions")
