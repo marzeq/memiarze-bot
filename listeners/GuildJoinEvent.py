@@ -3,7 +3,7 @@ from discord.ext import commands
 import main
 
 
-class Mutes(commands.Cog):
+class GuildJoinEvent(commands.Cog):
 
     def __init__(self, client):
         self.client: main.MemiarzeClient = client
@@ -15,4 +15,4 @@ class Mutes(commands.Cog):
 
 
 def setup(client: main.MemiarzeClient):
-    client.add_cog(Mutes(client))
+    client.add_cog(GuildJoinEvent(client))
