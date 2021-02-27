@@ -64,3 +64,25 @@ class ReactionRoleMessage:
         self.client.conn.commit()
 
         await self.message.clear_reactions()
+
+    async def add_emoji(self, emoji: ReactionRoleEmoji):
+        self.emojis[emoji.emoji] = emoji
+
+        self.client.cursor.execute("insert into reaction_role_emoji (emoji, messageid, roleid) values (:emoji, :messageid, :roleid)",
+                                   {"emoji": emoji.emoji, "messageid": self.message.id, "roleid": emoji.role.id})
+
+        await self.message.add_reaction(emoji.emoji)
+
+        self.client.conn.commit()
+
+    async def remove_emoji(self, emoji: ReactionRoleEmoji):
+        self.emojis.pop(emoji.emoji)
+
+        self.client.cursor.execute("delete from reaction_role_emoji where messageid = :messageid and emoji = :emoji",
+                                   {"emoji": emoji.emoji, "messageid": self.message.id})
+
+        me: discord.Member = self.message.channel.guild.fetch_member(self.client.user.id)
+
+        await self.message.remove_reaction(emoji.emoji, me)
+
+        self.client.conn.commit()

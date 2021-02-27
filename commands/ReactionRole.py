@@ -122,6 +122,54 @@ class ReactionRoles(commands.Cog):
             )
         )
 
+    @reaction_role.command(name="add_emoji")
+    async def add_emoji(self, ctx: commands.Context, message: discord.Message, emoji: str, role: discord.Role):
+        reaction_role_orm = orm.reaction_role.ReactionRoleMessages(self.client)
+
+        rrole_message = await reaction_role_orm.get_reaction_role_by_message(message)
+
+        if rrole_message is None:
+            await ctx.send(
+                embed=utils.ErrorEmbed(
+                    title="reaction_role",
+                    description=f"Ta wiadomość nie ma reaction role!"
+                )
+            )
+
+            return
+
+        await rrole_message.add_emoji(orm.reaction_role.ReactionRoleEmoji(emoji, role))
+
+        await ctx.send(
+            embed=utils.SuccessEmbed(
+                title=f"Pomyślnie przypisano {emoji} do {role.name}."
+            )
+        )
+
+    @reaction_role.command(name="remove_emoji")
+    async def remove_emoji(self, ctx: commands.Context, message: discord.Message, emoji: str):
+        reaction_role_orm = orm.reaction_role.ReactionRoleMessages(self.client)
+
+        rrole_message = await reaction_role_orm.get_reaction_role_by_message(message)
+
+        if rrole_message is None:
+            await ctx.send(
+                embed=utils.ErrorEmbed(
+                    title="reaction_role",
+                    description=f"Ta wiadomość nie ma reaction role!"
+                )
+            )
+
+            return
+
+        await rrole_message.remove_emoji(orm.reaction_role.ReactionRoleEmoji(emoji, role))
+
+        await ctx.send(
+            embed=utils.SuccessEmbed(
+                title=f"Pomyślnie usunięto emoji {emoji}."
+            )
+        )
+
 
 def setup(client: main.MemiarzeClient):
     client.add_cog(ReactionRoles(client))
