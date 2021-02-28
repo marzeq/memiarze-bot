@@ -66,7 +66,7 @@ class Warns:
         warns = []
 
         for obj in fetched:
-            warns.append(Warn(self.client.get_user(obj[0]), obj[1], obj[2], self.client, guild))
+            warns.append(Warn(self.client.get_user(obj[0]), obj[1], obj[3], self.client, guild))
 
         return warns
 

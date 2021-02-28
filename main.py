@@ -12,8 +12,8 @@ import sqlite3
 
 # commit with version bump for micro and above
 VersionInfo = namedtuple('VersionInfo', 'major minor micro fix')
-version_info = VersionInfo(major=1, minor=1, micro=0, fix=1)
-__version__ = "1.1.0.1"
+version_info = VersionInfo(major=1, minor=1, micro=0, fix=2)
+__version__ = "1.1.0.2"
 
 
 class MemiarzeClient(commands.Bot):
