@@ -12,7 +12,7 @@ def process_time(tme: str):
             if not tmearg[:-1].isdigit():
                 if tmearg[:-1] == "":
                     raise ValueError("Nie podałeś właściwego czasu!")
-                raise ValueError(f"{tmearg} is invalid!")
+                raise ValueError(f"{tmearg} jest niewłaściwe!")
             if tmearg.endswith("s"):
                 endtime += int(tmearg.replace("s", ""))
             elif tmearg.endswith("m"):
