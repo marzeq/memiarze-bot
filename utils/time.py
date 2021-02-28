@@ -1,16 +1,17 @@
 import time
+import re
 
 
 def process_time(tme: str):
-    tme = tme.split(" ")
+    tme = re.findall("..?", tme.replace(" ", ""))
     endtime = time.time()
     if not tme:
-        raise ValueError("You didn't provide any valid time!")
+        raise ValueError("Nie podałeś właściwego czasu!")
     for tmearg in tme:
         if [tmearg.endswith(char) for char in "smhdMy"]:
             if not tmearg[:-1].isdigit():
                 if tmearg[:-1] == "":
-                    raise ValueError("You didn't provide any valid time!")
+                    raise ValueError("Nie podałeś właściwego czasu!")
                 raise ValueError(f"{tmearg} is invalid!")
             if tmearg.endswith("s"):
                 endtime += int(tmearg.replace("s", ""))
