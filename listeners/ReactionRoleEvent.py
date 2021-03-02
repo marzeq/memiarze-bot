@@ -19,7 +19,7 @@ class ReactionRoleEvent(commands.Cog):
         reaction_role_message = await reaction_role_orm.get_reaction_role_by_message(message)
 
         if reaction_role_message is None:
-            pass
+            return
 
         member: discord.Member = payload.member
 
@@ -44,7 +44,7 @@ class ReactionRoleEvent(commands.Cog):
         reaction_role_message = await reaction_role_orm.get_reaction_role_by_message(message)
 
         if reaction_role_message is None:
-            pass
+            return
 
         member: discord.Member = await channel.guild.fetch_member(payload.user_id)
 
