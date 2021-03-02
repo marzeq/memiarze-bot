@@ -172,7 +172,7 @@ class ReactionRoles(commands.Cog):
 
             return
 
-        await rrole_message.remove_emoji(orm.reaction_role.ReactionRoleEmoji(emoji, role))
+        await rrole_message.remove_emoji(orm.reaction_role.ReactionRoleEmoji(emoji))
 
         await ctx.send(
             embed=utils.SuccessEmbed(

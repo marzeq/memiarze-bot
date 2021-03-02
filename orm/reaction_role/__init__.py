@@ -45,7 +45,7 @@ class ReactionRoleMessages:
 
 
 class ReactionRoleEmoji:
-    def __init__(self, emoji: str, role: discord.Role):
+    def __init__(self, emoji: str, role: discord.Role = None):
         self.emoji = emoji
         self.role = role
 
