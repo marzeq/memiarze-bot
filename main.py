@@ -1,7 +1,7 @@
 import json
 import os
 from collections import namedtuple
-from typing import *
+from typing import List
 
 import discord
 from discord.ext import commands
@@ -12,8 +12,8 @@ import sqlite3
 
 # commit with version bump for micro and above
 VersionInfo = namedtuple('VersionInfo', 'major minor micro fix')
-version_info = VersionInfo(major=1, minor=1, micro=0, fix=2)
-__version__ = "1.1.0.2"
+version_info = VersionInfo(major=1, minor=1, micro=0, fix=3)
+__version__ = "1.1.0.3"
 
 
 class MemiarzeClient(commands.Bot):

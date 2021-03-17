@@ -46,13 +46,11 @@ class Ufland(commands.Cog):
                 user.bot or reaction.message.author.bot or str(reaction.emoji) != "🍞":
             return
 
-        if reaction.message.channel.id == self.memes:
-            if reaction.message.author != user:
-                requests.patch(f"https://unbelievable.pizza/api/guilds/620296464337338410/users/"
-                               f"{reaction.message.author.id}/",
-                               json=self.jsonloose, headers=self.auth)
-                await self.client.fetch_channel(self.logging).send(f"Odejmuje {self.gain}😂💯 z banku "
-                                                                   f"{reaction.message.author.name}...")
+        if reaction.message.channel.id == self.memes \
+                and reaction.message.author != user:
+            requests.patch(f"https://unbelievable.pizza/api/guilds/620296464337338410/users/"
+                           f"{reaction.message.author.id}/",
+                           json=self.jsonloose, headers=self.auth)
 
     @commands.Cog.listener()
     async def on_message(self, message):
