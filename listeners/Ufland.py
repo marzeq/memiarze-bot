@@ -16,7 +16,7 @@ class Ufland(commands.Cog):
     jsongain = {"bank": gain}
     jsonloose = {"bank": -gain}
     memes = config["memes"]
-    logging = config["logging"]
+    guildid = config["guildid"]
     auth = config["auth"]
 
     def __init__(self, client: commands.Bot):
@@ -31,11 +31,9 @@ class Ufland(commands.Cog):
 
         if reaction.message.channel.id == self.memes:
             if reaction.message.author != user:
-                requests.patch(f"https://unbelievable.pizza/api/guilds/620296464337338410/users/"
+                requests.patch(f"https://unbelievable.pizza/api/guilds/{self.guildid}/users/"
                                f"{reaction.message.author.id}/",
                                json=self.jsongain, headers=self.auth)
-                await self.client.fetch_channel(self.logging).send(f"Dodaje {self.gain}😂💯 do banku "
-                                                                   f"{reaction.message.author.name}...")
 
             else:
                 await reaction.remove(user)
@@ -48,7 +46,7 @@ class Ufland(commands.Cog):
 
         if reaction.message.channel.id == self.memes \
                 and reaction.message.author != user:
-            requests.patch(f"https://unbelievable.pizza/api/guilds/620296464337338410/users/"
+                    requests.patch(f"https://unbelievable.pizza/api/guilds/{self.guildid}/users/"
                            f"{reaction.message.author.id}/",
                            json=self.jsonloose, headers=self.auth)
 
@@ -62,5 +60,5 @@ class Ufland(commands.Cog):
 
 def setup(client: commands.Bot):
     obj = Ufland(client)
-    if obj.memes != 0 and obj.logging != 0:
+    if obj.guildid != 0:
         client.add_cog(obj)

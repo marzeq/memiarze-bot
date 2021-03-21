@@ -111,11 +111,15 @@ class MemiarzeClient(commands.Bot):
 if __name__ == '__main__':
     with open("config.json", "r") as config_file:
         config = json.load(config_file)
-        TOKEN = config["token"]
 
     connec = sqlite3.connect(config["db"]["filename"])
 
     client = MemiarzeClient(conn=connec, cursor=connec.cursor(), intents=discord.Intents.all())
 
     print("Logging in...")
-    client.run(TOKEN)
+    client.run(config["token"])
+    
+    client.conn.commit() # in case i forget to add conn.commit() to my code somewhere
+
+    client.cursor.close()
+    client.conn.close()

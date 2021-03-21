@@ -3,7 +3,7 @@
     "ufland": {
         "auth": {"Authorization": "autoryzacja api unbelivaboat"},
         "memes": "id kanału z memami // zamień na liczbę",
-        "logging": "id kanału do logowanie // zamień na liczbę",
+        "guildid": "id gildii na której funkcja ma działać, ustaw na 0 jeśli chcesz wyłączyć funkcjonalność",
         "gain": "profit za reakcję // zamień na liczbę"
     },
     "db": {
